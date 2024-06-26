@@ -1,0 +1,19 @@
+{
+  "name": "presentation",
+  "version": "1.0.0",
+  "description": "Презентация для внутреннего митапа",
+  "private": true,
+  "author": "Sergei Kuksov",
+  "license": "MIT",
+  "scripts": {
+    "pdf": "shower pdf",
+    "serve": "shower serve",
+    "archive": "shower archive",
+    "bundle": "shower bundle",
+    "publish": "shower publish"
+  },
+  "dependencies": {
+    "@shower/core": "^3.3.0",
+    "@shower/ribbon": "^3.5.1"
+  }
+}

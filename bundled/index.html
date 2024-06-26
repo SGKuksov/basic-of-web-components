@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Фантастические веб-компоненты и где они обитают</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <link rel="stylesheet" href="shower/themes/ribbon/styles/styles.css">
+    <link rel="stylesheet" href="assets/styles.css">
+
+    <style>
+        .shower {
+            --slide-ratio: calc(16 / 9);
+            --progress-size: 5px;
+        }
+    </style>
+</head>
+<body class="shower list">
+
+<header class="caption">
+    <h1>Фантастические веб-компоненты и где они обитают</h1>
+    <p>Сергей Куксов, Nauka</p>
+</header>
+
+<section class="slide clear promo-slide">
+    <h2 class="promo-slide__title">Фантастические веб-компоненты и&nbsp;где они обитают</h2>
+    <p class="promo-slide__text">Сергей Куксов, Nauka</p>
+
+    <figure>
+        <img class="cover" src="assets/promo.jpg" alt="fantasy dragon versus mage">
+
+        <style>
+            .promo-slide .cover {
+                max-height: fit-content;
+                height: 100%;
+                opacity: 0.5;
+            }
+
+            h2.promo-slide__title {
+                color: #000;
+                font-family: "Marck Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+        </style>
+    </figure>
+</section>
+
+<section class="slide">
+    <h2>О чем поговорим</h2>
+
+    <ul>
+        <li>Основы веб-компонентов</li>
+        <li>Библиотеки для разработки, lit, stencil, и тд</li>
+        <li>Этапы разработки vaadin-компонента</li>
+    </ul>
+</section>
+
+<section class="slide" id="shout_1">
+    <h2>Основы веб-компонентов</h2>
+
+    <figure>
+        <img class="cover" src="assets/shout_1.jpeg" alt="big snail with little person on it">
+    </figure>
+
+    <style>
+        #shout_1 .cover {
+            max-height: fit-content;
+            width: 100%;
+            opacity: 0.5;
+        }
+
+        #shout_1 h2 {
+            color: #000;
+            font-family: "Marck Script", cursive;
+            font-weight: 400;
+            font-style: normal;
+        }
+    </style>
+</section>
+
+<section class="slide">
+    <h2 class="logo-img">
+        <img src="assets/webcomponents_logo.png" alt="Web components organization logo" style="width: 100px;">
+
+        <span>Веб-компоненты</span>
+    </h2>
+    <p>— совокупность стандартов, которая позволяет создавать новые, пользовательские HTML-элементы со своими
+        свойствами, методами, инкапсулированными DOM и стилями</p>
+</section>
+
+<section class="slide">
+    <pre>
+        <code class="language-javascript">class UserCard extends HTMLElement {</code>
+        <code class="language-javascript">connectedCallback() {</code>
+        <code class="language-javascript">  let date = new Date(this.getAttribute('datetime'));</code>
+        <code class="language-javascript"> </code>
+        <code class="language-javascript">  this.innerHTML = new Intl.DateTimeFormat("default", {</code>
+        <code class="language-javascript">      year: this.getAttribute('year'),</code>
+        <code class="language-javascript">      month: this.getAttribute('month'),</code>
+        <code class="language-javascript">      day: this.getAttribute('day'),</code>
+        <code class="language-javascript">  }).format(date);</code>
+        <code class="language-javascript">} }</code>
+    </pre>
+</section>
+
+<section class="slide">
+    <pre>
+        <code class="language-javascript">this.attachShadow({mode: 'open'}); </code>
+        <code class="language-javascript">// у теневого дерева свои стили </code>
+        <code class="language-javascript">this.shadowRoot.innerHTML = ` </code>
+        <code class="language-javascript">  &lt;style&gt; p { font-weight: bold; } &lt;/style&gt; </code>
+        <code class="language-javascript">  &lt;p&gt;Hello, John!&lt;/p&gt; </code>
+        <code class="language-javascript">`; </code>
+    </pre>
+</section>
+
+<section class="slide">
+    <pre>
+        <code class="language-javascript">this.shadowRoot.innerHTML = ` </code>
+        <code class="language-javascript">  &lt;div&gt;Имя: </code>
+        <code class="language-javascript">      &lt;slot name="username"&gt;&lt;/slot> </code>
+        <code class="language-javascript">  &lt;/div&gt; </code>
+        <code class="language-javascript">`; </code>
+    </pre>
+</section>
+
+<section class="slide">
+    <pre>
+        <code class="language-javascript">customElements.define("user-card", UserCard);</code>
+        <code class="language-javascript"> </code>
+        <code class="language-html">&lt;user-card
+    datetime="2019-12-01"
+    year="numeric" month="long" day="numeric"&gt;</code>
+        <code class="language-html">   &lt;span slot="username"&gt;Иван Иванов&lt;/span&gt;</code>
+        <code class="language-html">&lt;/user-card&gt; </code>
+    </pre>
+</section>
+
+<section class="slide">
+    <p>И вот что у нас получилось</p>
+
+    <script src="demo/native.js"></script>
+
+    <user-card
+            datetime="2019-12-01"
+            year="numeric"
+            month="long"
+            day="numeric"
+    >
+        <span slot="username">Иван Иванов</span>
+    </user-card>
+</section>
+
+<section class="slide">
+    <p>Пример довольно известной кнопки с .
+        <a href="https://developer.apple.com/documentation/apple_pay_on_the_web/displaying_apple_pay_buttons_using_javascript">Линк</a>
+    </p>
+
+    <pre>
+        <code class="language-xml">&lt;script
+    src="https://applepay.com/......./apple-pay-sdk.js"
+    &gt;&lt;/script&gt;</code>
+        <code class="language-xml">&lt;apple-pay-button
+    buttonstyle="black"
+    type="buy"
+    locale="ru-RU"
+    &gt;&lt;/apple-pay-button&gt;</code>
+    </pre>
+</section>
+
+<section class="slide">
+    <h3>Основные технологии</h3>
+    <ul>
+        <li>Custom Elements <a href="https://caniuse.com/custom-elementsv1">линк</a></li>
+        <li>Shadow DOM <a href="https://caniuse.com/?search=shadowroot">линк</a></li>
+        <li>HTML &lt;template&gt; и &lt;slot&gt;</li>
+        <li class="next">Declarative Shadow DOM <a href="https://caniuse.com/?search=shadowrootmode">линк</a></li>
+    </ul>
+</section>
+
+<section class="slide">
+    <div style="display: flex; align-items: baseline">
+        <h3>Declarative Shadow DOM &nbsp;</h3>
+        <a style="line-height: 1" href="https://developer.chrome.com/docs/css-ui/declarative-shadow-dom">линк</a>
+    </div>
+
+    <pre>
+        <code>&lt;template shadowrootmode="open"&gt; </code>
+        <code>  &lt;style&gt; button { color: seagreen; } &lt;/style&gt;</code>
+        <code> </code>
+        <code>  &lt;button&gt; </code>
+        <code>      &lt;slot&gt;&lt;/slot&gt; </code>
+        <code>  &lt;/button&gt; </code>
+        <code>&lt;/template&gt; </code>
+    </pre>
+</section>
+
+<section class="slide">
+    <h3>Плюсы</h3>
+
+    <ul>
+        <li class="next">Инкапсуляция</li>
+        <li class="next">Нативность</li>
+        <li class="next">Меньше кода</li>
+        <li class="next">Меньше зависимостей</li>
+        <li class="next">Меньше потребление памяти</li>
+        <li class="next">Выше перформанс</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h3>Минусы</h3>
+
+    <ul>
+        <li class="next">Всплытие и прослушка событий</li>
+        <li class="next">Пропсы - строки</li>
+        <li class="next">Связывание данных</li>
+        <li class="next">Много работы с DOM Api</li>
+        <li class="next">Доступность, только частичная поддержка полной спецификации</li>
+        <li class="next">SEO, решается Declarative Shadow DOM</li>
+        <li class="next">Низкая популярность</li>
+    </ul>
+</section>
+
+<section class="slide" id="shout_2">
+    <h2>Библиотеки</h2>
+
+    <figure>
+        <img class="cover" src="assets/shout_2.jpg" alt="many moon balls and a boat with boater">
+    </figure>
+
+    <style>
+        #shout_2 .cover {
+            max-height: fit-content;
+            width: 100%;
+            opacity: 0.5;
+        }
+
+        #shout_2 h2 {
+            color: #000;
+            font-family: "Marck Script", cursive;
+            font-weight: 400;
+            font-style: normal;
+        }
+    </style>
+</section>
+
+<section class="slide library-card">
+    <h2 class="logo-img">
+        <img src="assets/polymer_logo.png" alt="Polymer library logo" style="width: 100px;">
+
+        <span>Polymer</span>
+    </h2>
+
+    <p><a href="https://polymer-library.polymer-project.org/3.0/docs/devguide/feature-overview">линк</a></p>
+    <p>★ 22k</p>
+
+    <script type="module" src="demo/polymer.js"></script>
+
+    <pre>
+        <code>&lt;x-custom greeting="hello polymer!"&gt;&lt;/x-custom&gt;</code>
+    </pre>
+
+    <x-custom greeting="hello polymer!"></x-custom>
+</section>
+
+<section class="slide">
+    <style>
+        ul li.mark {
+            background: beige;
+            padding-left: 2px;
+        }
+    </style>
+
+    <ul>
+        <li>Собственный шаблонизатор</li>
+        <li>Система миксинов</li>
+        <li>Хелперы для обработки событий жестов</li>
+        <li>Отслеживание изменения свойств компонента, вычисляемые свойства и двухстороннее связывание</li>
+        <li class="next mark">The Polymer library is in maintenance mode. For new development, we recommend Lit.</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h2 class="logo-img">
+        <img src="assets/lit_logo.png" alt="lit logo" style="width: 100px;">
+
+        <span>lit</span>
+    </h2>
+
+    <p><a href="https://lit.dev/">линк</a></p>
+    <p>★ 17.9k</p>
+
+    <script type="module" src="demo/lit.js"></script>
+
+    <pre>
+        <code>&lt;simple-greeting name="lit"&gt;&lt;/simple-greeting&gt;</code>
+    </pre>
+
+    <simple-greeting name="lit"></simple-greeting>
+</section>
+
+<section class="slide">
+    <ul>
+        <li>Шаблонизатор lit-html</li>
+        <li>Декораторы</li>
+        <li>Миксины</li>
+        <li>Глобальное состояние через <code>@lit/context</code></li>
+        <li>Реактивный контроллер для работы с асинхронным кодом</li>
+        <li><code>@lit/react</code> для веб-компонентов внутри React</li>
+        <li>SSR с частичной поддержкой</li>
+        <li>Поддержка локализации</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h2 class="logo-img">
+        <img src="assets/stencil-logo.png" alt="stencil logo" style="width: 100px;">
+
+        <span>stencil</span>
+    </h2>
+
+    <p><a href="https://stenciljs.com/docs/getting-started">линк</a></p>
+    <p>★ 12.4k</p>
+</section>
+
+<section class="slide">
+    <ul>
+        <li>Поддержка jsx</li>
+        <li>Есть инструменты для оборачивания компонентов stencil в Angular, Ember, React и Vue</li>
+        <li>Декораторы</li>
+        <li>Функциональные компоненты</li>
+        <li>Глобальное состояние</li>
+        <li>Scoped css</li>
+        <li>Генерация документации</li>
+        <li>SSR</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h2 class="logo-img">
+        <img src="assets/hybrids.png" alt="Hybrids logo" style="width: 100px;">
+
+        <span>Hybrids</span>
+    </h2>
+
+    <p><a href="https://hybrids.js.org/">линк</a></p>
+    <p>★ 3k</p>
+
+    <script type="module" src="demo/hybrids.js"></script>
+
+    <pre>
+        <code>&lt;simple-counter count="42"&gt;&lt;/simple-counter&gt;</code>
+    </pre>
+
+    <simple-counter count="42"></simple-counter>
+</section>
+
+<section class="slide">
+    <ul>
+        <li>Функциональный</li>
+        <li>Глобальный менеджер состояний, кеширование, оффлайн и тд</li>
+        <li>Предлагает описывать лейауты в стиле подобном tailwind</li>
+        <li>Поддержка локализации</li>
+        <li>Hot Module Replacement</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h2 class="logo-img">
+        <img src="assets/skatejs.png" alt="Slim library logo" style="width: 100px;">
+
+        <span>skatejs</span>
+    </h2>
+
+    <p><a href="https://skatejs.netlify.app/">линк</a></p>
+    <p>★ 3.3k</p>
+
+    <script type="module" src="demo/skate-preact.js"></script>
+    <script type="module" src="demo/skate-lit.js"></script>
+
+    <pre>
+        <code>&lt;element-preact name="Skate!"&gt;&lt;/element-preact&gt;</code>
+    </pre>
+
+    <element-preact name="Skate!"></element-preact>
+</section>
+
+<section class="slide">
+    <ul>
+        <li>Поддерживает синтаксис React, Preact и LitHTML</li>
+        <li>Валидация пропсов</li>
+        <li>Поддержка react-контекста</li>
+        <li>Поддержка markdown</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h2 class="logo-img">
+        <img src="assets/slim3_logo.png" alt="Slim library logo" style="width: 100px;">
+
+        <span>slim.js</span>
+    </h2>
+
+    <p><a href="https://polymer-library.polymer-project.org/3.0/docs/devguide/feature-overview">линк</a></p>
+    <p>★ 1k</p>
+
+    <script type="module" src="demo/slim.js"></script>
+
+    <pre>
+        <code>&lt;my-greeting&gt;&lt;/my-greeting&gt;</code>
+    </pre>
+
+    <my-greeting></my-greeting>
+</section>
+
+<section class="slide">
+    <ul>
+        <li>Декораторы</li>
+        <li>Свой синтаксис шаблонов</li>
+    </ul>
+</section>
+
+<section class="slide" id="shout_3">
+    <h2>Напишем свой веб-компонент под Vaadin</h2>
+
+    <figure>
+        <img class="cover" src="assets/shout_3.png" alt="fantastic warrior against a dragon">
+    </figure>
+
+    <style>
+        #shout_3 .cover {
+            max-height: fit-content;
+            width: 100%;
+            opacity: 0.5;
+        }
+
+        #shout_3 h2 {
+            color: #000;
+            font-family: "Marck Script", cursive;
+            font-weight: 400;
+            font-style: normal;
+        }
+    </style>
+</section>
+
+<section class="slide">
+    <h2>Источники</h2>
+    <ul>
+        <li><a href="https://holyjs.ru/archive/2024%20Spring/talks/be48745be53e495399d7370f3f677c5b/">Доклад Романа
+            Троицкого</a></li>
+        <li><a href="https://www.webcomponents.org/libraries">webcomponents.org</a></li>
+    </ul>
+</section>
+
+<!--    <footer class="badge">-->
+<!--        <a href="https://github.com/shower/shower">Fork me on GitHub</a>-->
+<!--    </footer>-->
+
+<div class="progress"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="shower/shower.js"></script>
+<script>hljs.highlightAll();</script>
+<!-- Copyright © 2024 Сергей Куксов, Nauka -->
+
+</body>
+</html>

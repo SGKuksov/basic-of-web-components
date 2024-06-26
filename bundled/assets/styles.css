@@ -1,0 +1,18 @@
+.slide::after {
+    background-image: url(logo.svg);
+}
+
+.logo-img {
+    margin-bottom: 0 !important;
+    line-height: 1;
+}
+
+.logo-img + p {
+    padding-left: 30px;
+}
+
+.logo-img span {
+    display: inline-block;
+    position: relative;
+    bottom: 16px;
+}
