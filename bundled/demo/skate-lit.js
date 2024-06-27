@@ -1,4 +1,4 @@
-import Element, { html } from 'https://cdn.jsdelivr.net/npm/@skatejs/renderer-lit-html@0.2.2/+esm'
+import Element, {html} from 'https://cdn.jsdelivr.net/npm/@skatejs/renderer-lit-html@0.2.2/+esm'
 
 class ElementLit extends Element {
     static get props() {
@@ -6,10 +6,11 @@ class ElementLit extends Element {
             name: String
         };
     }
+
     render() {
         return html`
-      Hello, ${this.name}!
-    `;
+            Hello, ${this.name}!
+        `;
     }
 }
 

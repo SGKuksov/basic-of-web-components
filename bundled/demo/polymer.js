@@ -6,18 +6,18 @@ class XCustom extends PolymerElement {
     // Define optional shadow DOM template
     static get template() {
         return html`
-      <style>
-        /* CSS rules for your element */
-          div {
-              font-weight: bold;
-              color: #333333;
-          }
-      </style>
+            <style>
+                /* CSS rules for your element */
+                div {
+                    font-weight: bold;
+                    color: #333333;
+                }
+            </style>
 
-        <!-- shadow DOM for your element -->
+            <!-- shadow DOM for your element -->
 
-      <div>[[greeting]]</div> <!-- data bindings in shadow DOM -->
-    `;
+            <div>[[greeting]]</div> <!-- data bindings in shadow DOM -->
+        `;
     }
 
     // Declare properties for the element's public API

@@ -6,9 +6,9 @@ export class SimpleGreeting extends LitElement {
     };
     // Define scoped styles right with your component, in plain CSS
     static styles = css`
-        :host {
-          color: blue;
-        }
+      :host {
+        color: blue;
+      }
     `;
 
     constructor() {
@@ -22,4 +22,5 @@ export class SimpleGreeting extends LitElement {
         return html`<p>Hello, ${this.name}!</p>`;
     }
 }
+
 customElements.define('simple-greeting', SimpleGreeting);
